@@ -17,9 +17,8 @@ n00b <- function(functionname) {
     n00b_htmlfilename <- paste(functionname,".html", sep="")
     # Knit helpfile if it exists
     if (file.exists(n00b_filename)) {
-        knit(input=n00b_filename)
-        viewer <- getOption("viewer")
-        viewer(n00b_htmlfilename)
+        rmarkdown::render(input=n00b_filename,output_file=n00b_htmlfilename)
+        browseURL(n00b_htmlfilename)
     } else {
         print(paste("ERR01 - Could not find an example for the function '",functionname,"'",sep=""))
     }

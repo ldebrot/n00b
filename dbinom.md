@@ -1,4 +1,6 @@
 ---
+title: "dbinom for n00b"
+Author: Lucien De Brot
 output: 
   html_document: 
     css: n00b.css

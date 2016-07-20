@@ -1,0 +1,47 @@
+---
+title: "rnorm for n00b"
+Author: Lucien De Brot
+output: 
+  html_document: 
+    css: n00b.css
+---
+
+## RNORM - Random Normal Distribution
+
+**rnorm is useful for creating a set of normally-distributed observations.**
+
+**rnorm's arguments**:
+
+* n = number of observations to be created (=size of the distribution)
+
+* mean = mean of the distribution
+
+* sd = standard deviation of the distribution
+
+**rnorm**(**x**=*number of values*, **mean**=*mean*, **sd**=*standard deviation*)
+
+Let us generate such a distribution with 10000 observations, centered around the mean 174 and with a standard deviation of 10.
+
+```{r generate_test_pop, echo=TRUE}
+test_pop <- rnorm(n=10000,mean=174,sd=10)
+plot(test_pop)
+```
+
+* On the x-axis, you find the number of each observation (value number one, value number two, etc.).
+
+* On the y-axis, you find the actual value of the normally-distributed 
+
+In order to see that the newly created set of observations is actually normally-distributed, we need to plot a histogram.
+
+```{r plot_test_pop, echo=TRUE}
+hist(test_pop,breaks=100)
+```
+
+This shows the nice "bell form" of a normal distribution.
+
+```{r qqnorm_test_pop, echo=TRUE}
+qqnorm(test_pop)
+qqline(test_pop,col="red")
+```
+
+And the **normal probability plot** above confirms the normal distribution graphically.

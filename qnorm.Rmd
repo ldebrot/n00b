@@ -1,0 +1,63 @@
+---
+title: "rnorm for n00b"
+author: Lucien De Brot
+output: 
+  html_document: 
+    css: n00b.css
+---
+
+##QNORM - Quantile Normal Distribution
+
+**QNORM is useful for determining which chunk of the distribution amounts to a given probability**
+
+**qnorm's arguments**:
+
+* p = probability of the distribution
+
+* mean = mean of the distribution
+
+* sd = standard deviation of the distribution
+
+* lower.tail = TRUE if you want the quantile at which ends the probability chunk (thus situated left of the quantile); =FALSE if you want the quantile at which ends the probability chunk (thus situated right of the quantile)
+
+**For example**: In a normal distribution of 10000 people's heights (with mean 174 and the standard deviation at 10), we would like to know which height range covers 80% of all heights. In other words, which are the 80% most common heights?
+
+**qnorm's arguments as used in our example**:
+
+* p = 0.1 (because we want the "inner" 80% in this particular example. We therefore cut off 10% from each end.). The lower.tail arguments will from which end we count the probability mass.
+
+* mean = mean of our test distribution = 174
+
+* sd = standard deviation of our test distribution = 10
+
+* lower.tail = TRUE to get the quantile from which starts the 80% range (<10%), FALSE to get the quantile at which ends the 80% (<90%)
+
+```{r qnorm_continuous, echo=TRUE}
+# Generate our test distribution
+test_pop <- rnorm(n=10000,mean=174,sd=10)
+
+# Now let us calculate the respective quantiles, giving us both ends of the "80% range"
+qex_left <- qnorm(p=.1,mean=mean(test_pop),sd=sd(test_pop),lower.tail = TRUE)
+qex_right <- qnorm(p=.1,mean=mean(test_pop),sd=sd(test_pop),lower.tail = FALSE)
+print(round(c(qex_left,qex_right),2))
+
+# A nicely colored plot to illustrate our result
+h <- hist(test_pop, breaks=100, plot = FALSE)
+brks <- h$breaks[which(h$breaks>qex_left & h$breaks<qex_right)]
+binylw <- cut(brks, h$breaks)
+brks <- h$breaks[which(h$breaks %in% round(c(qex_left,qex_right),0))]
+binred <- cut(brks, h$breaks)
+clr <- rep("white", length(h$counts))
+clr[binylw] <- "yellow"
+clr[binred] <- "red"
+plot(h, col=clr)
+```
+
+*Please note that this example is rather extraordinary. Instead of using 0.8 as our probability (for the 80% for which we are looking), we used .1 twice. The histogram above shows two results provided by qnorm : the quantile at 10% and 90% of the distribution respectively (in red). The bars in between are coloured for your convenience, but do not result from our caculations*
+
+
+**What goes in, what comes out**:
+
+* **Input**: probability (*p*), information about the distribution (*mean and sd*) and indication which part of the distribution (*lower.tail*)
+
+* **Output**: The quantile on the lower or upper end of the probability chunk

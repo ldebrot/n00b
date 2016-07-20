@@ -1,0 +1,64 @@
+---
+title: "dnorm for n00b"
+author: Lucien De Brot
+output:
+  html_document:
+    css: n00b.css
+---
+
+## DNORM - Density Normal Distribution
+
+**dnorm is useful for calculating density at a given point of a normal distribution.** In other terms, dnorm indicates which part a specific value makes up in the distribution.
+
+**dnorm's arguments**:
+
+* x = a value among others in the distribution / the quantile
+
+* mean = mean of the normal distribution
+
+* sd = standard deviation of the normal distribution
+
+**Example**:
+We would like to know how many people are 180cm tall among a normally-distributed population (with a mean centered around 174 and a standard deviation of 10).
+
+**dnorm's arguments as used in our example**:
+
+* x = 180cm, our quantile
+
+* mean = 174, the mean of our test distribution
+
+* sd = 10, the standard deviation of our test distribution
+
+```{r dnorm_plot, echo=TRUE}
+#Generate our test distribution
+test_pop <- rnorm(n=10000,mean=174,sd=10)
+
+#A nicely colored plot to illustrate what dnorm is doing
+h <- hist(test_pop, breaks=100, plot = FALSE)
+bin <- cut(180, h$breaks)
+clr <- rep("white", length(h$counts))
+clr[bin] <- "red"
+plot(h, col=clr)
+
+dex <- dnorm(x=180,mean=mean(test_pop),sd=sd(test_pop))
+print(dex)
+```
+
+**What goes in, what comes out**:
+
+* **Input**: 180cm (quantile / the x-value of where the red bar stands)
+
+* **Output**: Density at that given point (y-value = height of the red bar)
+
+The output is `r dex`, which tells us the `r round(100*dex,2)`% of the distribution (people) is located at exactly 180 (cm).
+
+This is of course a somewhat artificial number as there is not a single observation at exactly 180 in our test distribution. You can see that by going through the numbers yourself.
+
+```{r dnorm_continuous, echo=TRUE}
+#Show a part of the observations to confirm that we are dealing with continuous data
+head(unique(test_pop))
+```
+
+We are clearly dealing with continous (vs discrete) numerical data. This does not stop us from using dnorm with a rounded value such as 180.
+
+*Please note that the y-value over the total area would provide the probability*
