@@ -1,0 +1,31 @@
+---
+output: 
+  html_document: 
+    css: n00b.css
+---
+
+# DBINOM
+
+**dbinom is useful for providing the probability of exact K successes in N trials at probability of success P**
+
+**The situation**:
+According to a poll, 38% of people are dumb. What is the probability that in a random sample of 10 people exactly 6 people are dumb?
+
+**The numbers**:
+
+* probability = 38%
+
+* number of successes = 6
+
+* number of trials = 10
+
+
+**dbinom's variables**:
+
+* x = number of successes = 6
+
+* size = number of trials = 10
+
+* prob = probability = 0.56
+
+**Formula used**: dbinom(x=6,size=10,prob=0.56)
