@@ -1,0 +1,132 @@
+
+---
+title: "Distributions and probability"
+author: "Lucien De Brot"
+date: "21 juillet 2016"
+output: 
+  html_document: 
+    css: C:/Users/Lucien/OneDrive/HARDDRIVE/LDS/NotAnEngineer/n00b/n00b.css
+---
+
+#Normal distribution
+Randomized sample of independent and identically distributed variables.
+
+#Geometric distribution
+The first success in *n* Bernoulli trials
+
+#Binomial distribution
+The *k*th success in the *n*th trial
+
+Check whether the distribution is binomial
+
+```{r binom_check, echo=TRUE}
+binom_check <- function () {
+    print("1) The trials are independent")
+    print("2) The number of trials *n* is fixed")
+    print("3) Each trial outcome can be classified as a *success* or *failure*")
+    print("4) The probability of success *p* is the same for each trial")
+}
+```
+
+Obtain the probability of *k* successes in *n* trials at probability *p*:
+
+```{r binom_probability, echo=TRUE}
+binom_probability <- function (n=0,k=0,p=0) {
+    if (sum(c(n,k,p))==0) {
+        print("You need to specify n trials, k successes and p probability")
+        print("FORMULA : choose(n,k)*p^k*(1-p)^(n-k)")
+    } else {
+        choose(n,k)*p^k*(1-p)^(n-k)
+    }
+}
+```
+
+Obtain the mean of a binomial distribution:
+
+```{r binom_mean, echo=TRUE}
+binom_mean <- function (n=0,p=0) {
+    if (sum(c(n,p))==0) {
+        print("You need to specify n trials and p probability.")
+        print("FORMULA : Mean = n * p*")
+    } else {
+        print(n*p)
+    }
+}
+```
+
+Obtain the standard deviation of a binomial distribution:
+
+```{r binom_sd, echo=TRUE}
+binom_sd <- function (n=0,p=0) {
+    if (sum(c(n,p))==0) {
+        print("You need to specify n trials and p probability.")
+        print("FORMULA : sigma = sqrt(n*p*(1-p))")
+    } else {
+        print(sqrt(n*p*(1-p)))
+    }
+}
+```
+
+#Negative binomial distribution
+
+Check whether the distribution is negative binomial
+
+```{r nbinom_check, echo=TRUE}
+nbinom_check <- function () {
+    print("1) The trials are independent")
+    print("2) Each trial outcome can be classified as a *success* or *failure*")
+    print("3) The probability of success *p* is the same for each trial")
+    print("4) The last trial is a success")
+}
+```
+
+Obtain the probability of the *k*th success in *n* trials at probability *p*:
+
+```{r nbinom_probability, echo=TRUE}
+nbinom_probability <- function (n=0,k=0,p=0) {
+    if (sum(c(n,k,p))==0) {
+        print("You need to specify k successes at the nth trial, at p probability")
+        print("FORMULA : choose(n-1,k-1)*p^k*(1-p)^(n-k)")
+    } else {
+        print(choose(n-1,k-1)*p^k*(1-p)^(n-k))
+    }
+}
+```
+
+
+#Poisson distribution
+
+The Poisson distribution is useful for estimating the number of events in a large population over a unit of time.
+
+Check whether it is a Poisson distribution:
+
+```{r pois_check, echo=TRUE}
+pois_check <- function () {
+    print("1) We are looking for the number of events (=successes)")
+    print("2) The population is large")
+    print("3) Events occur independently from each other")
+}
+```
+
+Obtain Poisson probability:
+
+```{r pois_probability, echo=TRUE}
+pois_probability <- function (lambda=0,k=0) {
+    if (sum(c(lambda,k))==0) {
+        print("You need to specify lambda and k successes")
+        print("Note the difference between pois_probability and ppois! pois_probability provides probability for EXACTLY k successes, whereas ppois provides probability of k or less successes (=chunk of the distribution)")
+        print("FORMULA : ((lambda^k)*exp(1)^(-1*lambda))/factorial(k)")
+    } else {
+        print(((lambda^k)*exp(1)^(-1*lambda))/factorial(k))
+    }
+}
+```
+
+
+
+Normal model can be used for sampling distributions if
+* sample size > 30
+* independent probabilities
+* randomized
+
+

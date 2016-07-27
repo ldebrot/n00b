@@ -1,0 +1,40 @@
+---
+title: "XXX for n00b"
+author: Lucien De Brot
+output:
+  html_document:
+    css: n00b.css
+---
+
+## XXX - TITLETITLETITLETITLE
+
+**XXX is useful for ...** ...
+
+**XXX's arguments**:
+
+* x = ...
+
+
+**Example**:
+...
+
+**dnorm's arguments as used in our example**:
+
+* x = ...
+
+
+```{r xxx, echo=TRUE}
+#Function
+
+#Plot
+
+```
+
+**What goes in, what comes out**:
+
+* **Input**: ...
+
+* **Output**: ...
+
+
+*...*
