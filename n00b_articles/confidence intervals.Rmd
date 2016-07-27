@@ -1,0 +1,156 @@
+---
+title: "Confidence intervals"
+author: "Lucien De Brot"
+date: "25 juillet 2016"
+output: 
+  html_document: 
+    css: C:/Users/Lucien/OneDrive/HARDDRIVE/LDS/NotAnEngineer/n00b/n00b.css
+---
+
+#Before calculating the confidence interval
+
+Criteria to find the right formulae:
+
+* Distribution : normal, poisson, t,...?
+
+* Independent or paired data?
+
+* One or two means?
+
+* Equal or different variance?
+
+* one- or two-sided? (draw a picture)
+
+#Normal Confidence intervals
+
+```{r norm_conf_int}
+#HYPOTHESES
+#H_0: mean - mean_old = 0
+#H_a: mean - mean_old > 0
+#two-sided
+#test statistic : Z score
+#n > 30, randomized, 
+
+#GIVEN DATA
+n <- 64 ### patients
+mean <- 137.5 ### minutes
+sd <- 39 ### minutes
+mean_old <- 127 ### minutes
+alpha <- .99
+sides <- 2 ### two-sided
+prob <- (1+alpha)/sides
+
+#CALCULATED DATA
+SE <- sd/sqrt(n)
+z_score <- (mean-mean_old)/SE
+confidence_interval <- mean + c(-1,1) * qnorm(p=prob) * SE
+p_value <- round((1-pnorm(z_score))*sides,4)
+```
+
+#T CONFIDENCE INTERVAL
+
+```{r t_conf_int}
+#In a population of interest, a sample of 9 men yielded a sample average brain volume of 1,100cc and a standard deviation of 30cc. What is a 95% Student's T confidence interval for the mean brain volume in this new population?
+
+#GIVEN DATA
+n <- 9
+mean <- 1100
+sd <- 30
+alpha <- .05
+sides <- 2 ### two-sided
+prob <- (1+(1-alpha))/sides
+
+#CALCULATED DATA
+SE <- sd/sqrt(n)
+df <- n-1
+confidence_interval <- mean + c(-1,1) * qt(p=prob,df) * SE
+```
+
+#PAIRED GROUP T INTERVALS
+
+``` {r iprd_grp_t_int}
+#GIVEN DATA
+n_diff <- 73 ### Number of "data pairs"
+mean_diff <- 12.76 ### Mean of all differences
+sd_diff <- 14.26 ### standard deviation of the sample of differences
+
+#CALCULATED DATA
+SE_diff <- sd_diff/sqrt(n_diff)
+t_score <- (mean_diff - 0)/SE_diff
+```
+
+#INDEPENDENT GROUP T INTERVALS (equal variance / pooled standard deviation)
+
+``` {r ind_grp_t_int_eq_var}
+#GIVEN DATA
+n <- 20
+n_t <- 10
+n_c <- 10
+mean_t <- 3
+mean_c <- 5
+sd_t <- sqrt(.6)
+sd_c <- sqrt(.68)
+
+#CALCULATED DATA
+var <- ((n_t-1)*sd_t^2+(n_c-1)*sd_c^2)/df ### For pooled variance only 
+sd <- sqrt(var)
+SE <- sd*sqrt(1/n_t+1/n_c) ### For pooled standard deviation only
+df <- n_t + n_c - 2
+difference <- mean_t - mean_c
+confidence_interval <- difference + c(-1,1) * qt(.975,df) * SE
+```
+
+#INDEPENDENT GROUP T INTERVALS (unequal variance)
+
+``` {r ind_grp_t_int_uneq_var}
+#GIVEN DATA
+n <- 20
+n_t <- 10
+n_c <- 10
+mean_t <- 3
+mean_c <- 5
+var_t <- .6
+var_c <- .68
+
+#CALCULATED DATA
+sd_t <- sqrt(var_t)
+sd_c <- sqrt(var_c)
+SE <- sqrt(var_t/n_t+var_c/n_t) ### For unequal variances (vs pooled ones)
+df <- (sd_t^2/n_t+sd_c^2/n_c)^2/(((sd_t^2/n_t)^2/(n_t-1))+((sd_c^2/n_c)^2/(n_c-1))) ### For unequal variances (vs pooled ones)
+difference <- mean_t - mean_c
+confidence_interval <- difference + c(-1,1) * qt(.975,df) * SE
+
+#POWER
+effect <- -3 ## The effect of interest is a -3 difference between the treatment and the control group
+upun_confint <- difference + (effect/abs(effect)) * qt(.975,df) * SE
+power <- pnorm((upun_confint - effect)/SE)
+
+```
+
+#POISSON INTERVAL
+
+``` {r poisson}
+#GIVEN DATA
+lambda <- 25
+alpha <- .05
+sides <- 2
+t <- 3
+
+#CALCULATED DATA
+SE <- sqrt(lambda/t)
+confidence_interval <- lambda + c(-1, 1) * qnorm(1-(alpha/sides)) * SE
+```
+
+#Clear everything
+
+```{r clear_everything}
+n <- NULL
+mean <- NULL
+sd <- NULL
+alpha <- NULL
+sides <- NULL
+prob <- NULL
+SE <- NULL
+df <- NULL
+confidence_interval <- NULL
+```

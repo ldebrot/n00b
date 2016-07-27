@@ -1,7 +1,7 @@
 
-# Set correct working directory
-source("n00b.R", chdir = TRUE)
-setwd("C:/Users/Lucien/OneDrive/HARDDRIVE/LDS/NotAnEngineer/n00b")
+# Set correct working directory - the right method is yet to be found
+#source("n00b.R", chdir = TRUE) 
+#setwd("C:/Users/Lucien/OneDrive/HARDDRIVE/LDS/NotAnEngineer/n00b")
 
 # Install knitr if necessary
 list.of.packages <- c("knitr")
@@ -10,8 +10,8 @@ if(length(new.packages)) install.packages(new.packages)
 library(knitr)
 par(mfrow=c(1,1))
 
-# Define actual n00b function
-n00b <- function(functionname) {
+# Define actual n00b_help function
+n00b_help <- function(functionname) {
     # Define name of helpfile based on provided function name
     n00b_filename <- paste(functionname,".Rmd", sep="")
     n00b_htmlfilename <- paste(functionname,".html", sep="")

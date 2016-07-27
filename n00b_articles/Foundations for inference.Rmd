@@ -1,0 +1,66 @@
+---
+title: "Foundations for inference"
+author: "Lucien De Brot"
+date: "20 juillet 2016"
+output: 
+  html_document: 
+    css: C:/Users/Lucien/OneDrive/HARDDRIVE/LDS/NotAnEngineer/n00b/n00b.css
+---
+
+## Getting confused with the basics of inference?
+
+If you are a newbie to statistics, or just have not dealt with such kind of topic for a while, you might get confused by the many new terms, some of which sound the same while others actually mean the same.
+
+Even the basics of inference are quite dense. If you read this article, you might have already started a class on statistical inference. If you need a clear wrap-up, this short read might help you cobble the different parts together.
+
+As it seems, this is a crucial chapter in statistics, which we will have to master before moving on to other, more complex topics. 
+
+##About how many distributions are we actually talking?
+
+When reading through class material, articles and forum discussions, always make sure to know with which distribution is being dealt. It helps understand which statistic pertains to which kind of distribution.
+
+1 The (individual) sample distribution(s)
+
+2 The distribution of sample means (=sampling distribution)
+
+3 The population distribution (which we can only estimate)
+
+##From the Sample to the Confidence interval
+
+
+
+###Sample
+
+First we take a **sample** of *n* observations from a population.
+
+###Point estimate (sample means)
+
+We calculate the mean of each sample. These mean values are called **point estimates** and form the **sampling distribution**.
+
+###Sample Standard Deviation
+
+Now, back to one of our samples. As we already calculated its mean we can now determine the **Sample Standard Deviation**, which is based on the distance of each observation from the sample mean. 
+
+###Estimate of the Population Standard Deviation
+
+We do not have the **Population Standard Deviation** (sigma), but the **Standard Deviation of the sampling distribution** (which is NOT the sample standard deviation) provides a useful estimate of it.
+
+According to the Central Limit Theorem, you can calculate the Standard Deviation of the Sampling distribution by using the standard deviation of the sample distribution and the sample size:
+
+sdsd = $$sqrt(var)$$ = $$sqrt(sigma^2/n)$$ = $$ sigma/sqrt(n)$$
+
+###Standard Error
+
+The **Standard Error** depends on both the standard deviation of the sampling distribution (expressing how much the sample means vary from each other) and the size of the samples (number *n* of observations in each sample). Logically, the standard error decreases as the sample size increases.
+
+###Confidence Interval
+
+A **confidence Interval** measures how certain we can be that the population parameter is in a certain interval. We calculate the Confidence interval by multiplying the **z-score** by the **Standard Error**. We obtain the z score by using qnorm (provided the distribution is normal).
+
+##Quick Reminders:
+
+* The **sampling distribution** is in fact the distribution of means of various samples. The whole process goes a little like this : many samples are taken from a population -> Their respective means are calculated -> We call the sample means **point estimates** -> These point estimates form the sampling distribution -> Sampling distributions are normally-distributed.
+
+* The **standard error** is short for the standard error of means (thus of the sampling distribution). A high standard error, for instance, means that when taking a sample of a population and calculating its mean, this statistic (the mean) is quite "far away" from the *true mean* (the correct mean of the population). Therefore, the whole sample might not be an accurate estimator of the population. The standard error of the sampling distributions is NOT its standard deviation, but rather another standard of deviation.* The standard error is likely to increase when taking small samples. 
+
+#####*Source : BMJ 15 October 2005, Standard deviations and standard errors, Douglas G. Altman, J Martin Bland

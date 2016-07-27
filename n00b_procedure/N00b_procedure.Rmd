@@ -1,0 +1,82 @@
+---
+title: "N00b R Procedures - Hypothesis"
+author: "Lucien De Brot"
+date: "24 juillet 2016"
+output: html_document
+---
+
+```{r input_steps, echo=TRUE}
+
+n00b_load <- function() {
+
+n00b_knit <- function(text) n00b_steps <<- rbind(n00b_steps,text)
+n00b_knit("Know your **Null hypothesis H_0** and your **alternative/research hypothesis H_a**")
+n00b_knit("Note both hypotheses as a formula (ex. *H_0 : mean_0 = 40*)")
+n00b_knit("Determine which point estimate or test statistic is useful for the parameter of interest")
+n00b_knit("Identify an appropriate distribution for the point estimate or test statistic")
+n00b_knit("Define your **confidence level alpha** (ex. *.95*)")
+n00b_knit("Compute the **standard deviation** and/or **standard error**")
+n00b_knit("Draw a picture depicting the distribution of the estimate under the idea that H_0 is true and shade areas representing the p-value.")
+n00b_knit("Define the **test statistic** among several options : define the **Z score** (ex. divide the difference between the H_0 and H_a values by the standard error of the mean). Find the **C value** (ex. C = mean_0 + qnorm(.95) * sd_0 )")
+n00b_knit("Calculate the **test statistic** :  identify the **p-value** of the hypothesis. you might need the Z or T score to find the p-value")
+n00b_knit("If t-statistic >> Z-score or C value **OR** if H_0 is not in the Confidence interval, reject H_0")
+n00b_knit("Is there a real effect (statistically-speaking)?")
+n00b_knit("Is the effect large enough to have practical value?")
+n00b_knit("What is the probability that we detext that effect?")
+n00b_knit("Write a conclusion in plain language")
+
+
+#End of n00b_load function
+}
+```
+
+```{r input_steps, echo=TRUE}
+n00b_reset <- function() {
+    n00b_steps <<- NULL
+    n00b_load()
+    n00b_currentstep <<- 0
+    print("RESET DONE. Steps loaded. Show will start at the beginning.")
+}
+
+n00b_set <- function(currentstep) {
+    n00b_currentstep <<- currentstep-1
+    message <- paste("Next step shown will be #",currentstep,".",sep="")
+    print(message)
+}
+
+n00b_show <- function(step=NULL) {
+    if (is.null(step)) {
+        n00b_currentstep <<- n00b_currentstep + 1
+        message <- paste("Current step is ",n00b_currentstep," :",sep="")
+        print(message)
+        print(n00b_steps[n00b_currentstep])
+    } else {
+        message <- paste("Selected step is ",step," :",sep="")
+        print(message)
+        print(n00b_steps[step])
+    }
+}
+```
+
+Distribution = t distribution
+
+```{r provide, ECHO=TRUE}
+n00b_comp <- function (n00b_required="",n00b_object="",n00b_distribution="",n00b_n="",n00b_sd_sample="") {
+    
+if (n00b_required=="calculate") {
+    if (n00b_object=="standard error") print(n00b_sd_sample/sqrt(n00b_n))
+    }
+
+if (n00b_required=="formula") {
+    if (n00b_object=="standard error") print("SE = sd_sample/sqrt(n)")
+
+    if (n00b_distribution=="t") {
+        if (n00b_object=="confidence.interval") print("mean_x + c(-1,1) * t_conf.int,df * SE")
+        if (n00b_object=="t-score") print("difference/SE")
+    } 
+
+}
+
+## End of n00b_comp function
+}
+```
