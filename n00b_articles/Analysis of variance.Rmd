@@ -1,12 +1,25 @@
 ---
-title: "XXX for n00b"
+title: "Analysis of variance"
 author: Lucien De Brot
 output:
   html_document:
     css: n00b.css
 ---
 
-## XXX - TITLETITLETITLETITLE
+## Used parameters in analysis of variance
+
+**MSG** - Mean square between groups --> describes variability between groups
+
+**MSE** - Mean square error --> describes variability within groups
+
+**F** = MSG/MSE = ratio of variability in the sample means relative to the variability within the groups
+
+The *F-Statistic* comes with two degrees of freedom : *df1* and *df2*
+
+*df1* = k - 1 (number of groups minus one)
+
+*df2* = n - k (combined sample size minus number of groups)
+
 
 **XXX is useful for ...** ...
 

@@ -11,6 +11,30 @@ output:
 #Normal distribution
 Randomized sample of independent and identically distributed variables.
 
+#F distribution
+Ratio of the mean squares of n1 and n2 independent standard normals.
+
+**MSG** - Mean square between groups --> describes variability between groups
+
+**MSE** - Mean square error --> describes variability within groups
+
+**F** = MSG/MSE = ratio of variability in the sample means relative to the variability within the groups
+
+The *F-Statistic* comes with two degrees of freedom : *df1* and *df2*
+
+*df1* = k - 1 (number of groups minus one)
+
+*df2* = n - k (combined sample size minus number of groups)
+
+```{r f_check, echo=TRUE}
+f_check <- function () {
+    print("ANOVA CONDITIONS:")
+    print("1) Observations are independent within and across groups --> random sample of 10% or less of the population")
+    print("2) Data within each group are nearly normal --> normal probability plto for each group")
+    print("3) Variability across the groups is about equal --> compare sds/vars of the different groups")
+}
+```
+
 #Geometric distribution
 The first success in *n* Bernoulli trials
 

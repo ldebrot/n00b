@@ -1,0 +1,22 @@
+
+---
+title: "Bootstrapping"
+author: "Lucien De Brot"
+output:
+  html_document:
+    css: n00b.css
+---
+
+## Used parameters in analysis of variance
+
+```{r resample_example}
+library(UsingR)
+data(father.son)
+x <- father.son$sheight
+n <- length(x)
+B <- 10000
+values <- sample(x=x,size=n*B, replace = TRUE) ### replace = TRUE --> drawn card goes back in the deck
+resamples <- matrix(data=values,nrow=B, ncol=n) ### resampled values in a matrix of dimensions 10000 X original sample size n
+resampledMedians <- apply(X=resamples,MARGIN=1,FUN=median) ### median computed for each row (=1)
+```
+
